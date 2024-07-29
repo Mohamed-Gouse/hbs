@@ -53,17 +53,17 @@ function Booking({ booking, updateCheckInOut }) {
           {booking.saved && booking.before_discount && (
             <>
               <p className="mb-1 text-capitalize">
-                <span className="font-weight-bold">Before Discount: </span>₹
+                <span className="font-weight-bold">Before Discount: </span>$
                 {booking.before_discount}
               </p>
               <p className="mb-1 text-capitalize">
-                <span className="font-weight-bold">Total saved: </span>₹
+                <span className="font-weight-bold">Total saved: </span>$
                 {booking.saved}
               </p>
             </>
           )}
           <p className="mt-3 mb-1 text-capitalize h5">
-            <span className="font-weight-bold">Grand Total: </span>₹
+            <span className="font-weight-bold">Grand Total: </span>$
             {booking.total}
           </p>
         </div>

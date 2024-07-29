@@ -6,6 +6,7 @@ const baseURL = import.meta.env.VITE_API_URL;
 const getHotelDetail = async (slug) => {
   try {
     const response = await axios.get(`${baseURL}users/hotels/${slug}/`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching hotels:", error);

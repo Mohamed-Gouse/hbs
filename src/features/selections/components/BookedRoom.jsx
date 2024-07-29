@@ -57,7 +57,7 @@ function BookedRoom({ selections, token, fetchSelections }) {
 
             <div className="col-4 text-right">
               <p className="rounded font-weight-bold text-secondary">
-                ₹ {rooms.room.room_type.price}
+                ${rooms.room.room_type.price}
               </p>
               <button
                 className="btn btn-danger font-weight-bold"

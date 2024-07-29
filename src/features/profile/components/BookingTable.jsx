@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from 'react-router-dom'
 
 function BookingTable({ bookings }) {
+
   return (
     <div className="col-12">
       <div
@@ -37,8 +38,16 @@ function BookingTable({ bookings }) {
                   <td>{booking.check_in_date}</td>
                   <td>{booking.check_out_date}</td>
                   <td>{booking.payment_status}</td>
-                  <td>₹ {booking.total}</td>
-                  <td>{booking.checked_out? "Review" : "View"}</td>
+                  <td>${booking.total}</td>
+                  <td>{booking.checked_out? (
+                    <>
+                      <Link to={`review/${booking.hotel.id}`} className="btn btn-secondary shadow" >Write Review</Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to={`booking/${booking.id}`} className="btn btn-secondary shadow" >View</Link>
+                    </>
+                  )}</td>
                 </tr>
               ))}
           </tbody>

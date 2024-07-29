@@ -1,6 +1,7 @@
 import React from "react";
 import FullLayout from "../layout/FullLayout";
 import "../assets/styles/success.css";
+import {Link} from 'react-router-dom'
 
 function SuccessPage() {
   return (
@@ -18,14 +19,7 @@ function SuccessPage() {
             We have sent your booking summary to your e-mail. Kindly verify it.
           </small>
           <p className="font-weight-bold">Thank you!</p>
-          <div className="d-flex justify-content-around my-2">
-            <a className="btn btn-purple" href="#" id="" name="" role="button">
-              View Bookings
-            </a>
-            <a className="btn btn-purple" href="#" id="" name="" role="button">
-              Download Invoice
-            </a>
-          </div>
+          <Link to={'/profile'} className="btn btn-purple">Goto Profile</Link>
         </div>
       </main>
     </FullLayout>

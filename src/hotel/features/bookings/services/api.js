@@ -54,9 +54,26 @@ export const reservationDetails = async (token, id) => {
 
 export const CheckInOut = async (access, bookingId) => {
   try {
-    console.log(access);
-    const response = await axiosIn.post(
+    const response = await axiosIn.patch(
       `admin/bookings/${bookingId}/check_in_out/`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const reservationCheckInOut = async (access, bookingId) => {
+  try {
+    const response = await axiosIn.patch(
+      `admin/reservations/${bookingId}/check_in_out/`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${access}`,
@@ -98,15 +115,11 @@ export const listRooms = async (token, slug) => {
 
 export const checkAvailable = async (formData, token) => {
   try {
-    const response = await axiosIn.post(
-      `check-availability/`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axiosIn.post(`check-availability/`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log("check", response.data);
     return response.data;
   } catch (error) {
@@ -117,14 +130,14 @@ export const checkAvailable = async (formData, token) => {
 export const createReservation = async (formData, token) => {
   try {
     console.log(formData);
-    const response = await axiosIn.post('admin/create-reservation/', formData, {
+    const response = await axiosIn.post("admin/create-reservation/", formData, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log(response);
-    return response.data
+    return response.data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};

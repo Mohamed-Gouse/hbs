@@ -56,7 +56,7 @@ function CheckAvailability({ id, rooms, room_type }) {
                     <div className="card m-2 px-3 py-1 bg-light shadow-sm">
                       <h3> {room.room_type.type}</h3>
                       <hr />
-                      <p className="font-weight-bold">₹{room.room_type.price}</p>
+                      <p className="font-weight-bold">${room.room_type.price}</p>
                       <p className="font-weight-bold small">
                         Beds Available - {room.room_type.no_of_beds}
                       </p>

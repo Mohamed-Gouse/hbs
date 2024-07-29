@@ -11,6 +11,7 @@ function HotelDetailPage() {
   const [room_type, setRoom_type] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [features, setFeatures] = useState([]);
+  const [review, setReview] = useState([]);
   const [isChat, setIsChat] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -25,6 +26,7 @@ function HotelDetailPage() {
       setRooms(data.rooms)
       setFeatures(data.features)
       setSelectedUser(data.user)
+      setReview(data.review)
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -37,7 +39,7 @@ function HotelDetailPage() {
 
   return (
     <FullLayout>
-      {!isChat && <HotelDetail hotel={hotel} gallery={gallery} room_type={room_type} rooms={rooms} features={features} />}
+      {!isChat && <HotelDetail hotel={hotel} gallery={gallery} room_type={room_type} rooms={rooms} features={features} review={review} />}
       <button
         type="button"
         className="btn p-3 btn-primary position-fixed shadow-sm font-weight-bold"

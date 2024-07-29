@@ -18,6 +18,7 @@ import AdminBookingDetailPage from "./hotel/pages/AdminBookingDetailPage";
 import BookingDetailPage from "./pages/BookingDetailPage";
 import AdminReservationPage from "./hotel/pages/AdminReservationPage";
 import AdminReservationDetailPage from "./hotel/pages/AdminReservationDetailPage";
+import ReviewWritingPage from "./pages/ReviewWritingPage";
 
 const AppRoutes = () => {
   const { isLogged, user } = useSelector((state) => state.auth);
@@ -80,6 +81,16 @@ const AppRoutes = () => {
         element={
           isLogged && user.role === "user" ? (
             <BookingDetailPage />
+          ) : (
+            <Navigate to={"/login"} />
+          )
+        }
+      />
+      <Route
+        path="/profile/review/:id"
+        element={
+          isLogged && user.role === "user" ? (
+            <ReviewWritingPage />
           ) : (
             <Navigate to={"/login"} />
           )

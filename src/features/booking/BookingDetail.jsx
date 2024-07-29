@@ -5,13 +5,16 @@ import { bookingDetail } from "./services/api";
 
 function BookingDetail() {
   const [booking, setBooking] = useState({});
+  const [rooms, setRooms] = useState([]);
   const { id } = useParams();
   const { access } = useSelector((state) => state.auth);
 
   const fetchBooking = async () => {
     try {
       const data = await bookingDetail(access, id);
+      console.log(data.rooms);
       setBooking(data);
+      setRooms(data.rooms);
     } catch (error) {
       console.log(error);
     }
@@ -83,11 +86,11 @@ function BookingDetail() {
                 {booking.saved}
               </p>
               <div className="d-flex justify-content-between">
-              <p className="mt-3 mb-1 text-capitalize h5">
-                <span className="font-weight-bold">Grand Total: </span>₹
-                {booking.total}
-              </p>
-              <button className="btn btn-primary">Print Invoice</button>
+                <p className="mt-3 mb-1 text-capitalize h5">
+                  <span className="font-weight-bold">Grand Total: </span>₹
+                  {booking.total}
+                </p>
+                <button className="btn btn-primary">Print Invoice</button>
               </div>
             </div>
           </div>
@@ -97,14 +100,19 @@ function BookingDetail() {
             <div className="bg-white shadow-sm rounded p-3">
               <h3>Room Detail</h3>
               <hr />
-              <p className="h5">
-                <span className="font-weight-bold">Room Type: </span>
-                {booking.room?.room_type.type}
-              </p>
-              <p>
-                <span className="font-weight-bold">Room number: </span>
-                {booking.room?.room_number}
-              </p>
+              {rooms.length > 0 &&
+                rooms.map((room) => (
+                  <div className="p-2 bg-light shadow-sm rounded my-2" key={room.id}>
+                    <p className="h5">
+                      <span className="font-weight-bold">Room Type: </span>
+                      {room?.room_type.type}
+                    </p>
+                    <p>
+                      <span className="font-weight-bold">Room number: </span>
+                      {room?.room_number}
+                    </p>
+                  </div>
+                ))}
               <p className="mt-3 mb-1 text-capitalize">
                 <span className="font-weight-bold">Checked in: </span>
                 {booking.checked_in ? "Checked In" : "Not yet"}

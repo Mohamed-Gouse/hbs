@@ -19,7 +19,12 @@ const CheckoutForm = ({ billInfo, handleBooking }) => {
     event.preventDefault();
     setLoading(true);
 
-    handleBooking();
+    try {
+      await handleBooking();
+    } catch (error) {
+      setError("Failed to process the payment");
+    }
+
     setLoading(false);
   };
 
@@ -43,17 +48,17 @@ function Selection() {
   const [billInfo, setBillInfo] = useState({
     user: isToken.user,
     hotel: "",
-    room: "",
+    rooms: [], // Changed from single room to array of rooms
     full_name: "",
     email: "",
     phone: "",
-    before_discount: "",
-    total: "",
-    saved: "",
-    total_days: "",
+    before_discount: 0,
+    total: 0,
+    saved: 0,
+    total_days: 0,
     check_in_date: "",
     check_out_date: "",
-    guests: "",
+    guests: 0,
     use_dummy_gateway: false,
   });
 
@@ -61,6 +66,7 @@ function Selection() {
     try {
       if (isLogged && isToken.isValid) {
         const response = await api.listSelection(access);
+        console.log(response);
         setSelections(response);
       } else {
         Swal.fire({
@@ -83,24 +89,28 @@ function Selection() {
   useEffect(() => {
     fetchSelections();
   }, []);
+  
 
   useEffect(() => {
     if (selections.length > 0) {
-      const firstSelection = selections[0];
+      const hotel = selections[0].hotel;
+      const roomIds = selections.map(selection => selection.room.id);
+      const total = selections.reduce((sum, selection) => sum + parseFloat(selection.room.room_type.price), 0);
+      console.log(total);
       setBillInfo({
         user: isToken.user,
-        hotel: firstSelection.hotel,
-        room: firstSelection.room.id,
+        hotel,
+        rooms: roomIds,
         full_name: "",
         email: "",
         phone: "",
-        before_discount: firstSelection.room.room_type.price,
-        total: firstSelection.room.room_type.price,
+        before_discount: total,
+        total,
         saved: 0.0,
-        total_days: firstSelection.total_days,
-        check_in_date: firstSelection.check_in,
-        check_out_date: firstSelection.check_out,
-        guests: firstSelection.guest,
+        total_days: selections[0].total_days,
+        check_in_date: selections[0].check_in,
+        check_out_date: selections[0].check_out,
+        guests: selections[0].guest,
         use_dummy_gateway: false,
       });
     }
@@ -170,11 +180,11 @@ function Selection() {
             <p className="font-weight-bold small text-secondary">
               Total Amount
             </p>
-            <p className="font-weight-bold small">{billInfo.before_discount}</p>
+            <p className="font-weight-bold small">${billInfo.before_discount}</p>
           </div>
           <div className="d-flex justify-content-between my-1">
             <p className="font-weight-bold small text-secondary">Discount</p>
-            <p className="font-weight-bold small">{billInfo.saved}</p>
+            <p className="font-weight-bold small">${billInfo.saved}</p>
           </div>
           {coupon && (
             <form>
@@ -196,7 +206,7 @@ function Selection() {
           <hr />
           <div className="d-flex justify-content-between my-1">
             <p className="font-weight-bold small text-secondary">Total Cost</p>
-            <p className="font-weight-bold small">{billInfo.total}</p>
+            <p className="font-weight-bold small">${billInfo.total}</p>
           </div>
         </div>
       </div>

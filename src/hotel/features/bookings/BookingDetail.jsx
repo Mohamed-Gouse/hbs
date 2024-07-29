@@ -24,8 +24,7 @@ function BookingDetail() {
 
   const updateCheckInOut = async (bookingId) => {
     try {
-      console.log("BTN Clicked");
-      const response = await CheckInOut({access, bookingId});
+      const response = await CheckInOut(access, bookingId);
       console.log(response);
       fetchBooking();
     } catch (error) {

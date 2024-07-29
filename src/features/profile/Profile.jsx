@@ -14,7 +14,6 @@ function Profile() {
 
   const fetchProfile = async () => {
     try {
-      console.log(access);
       const response = await api.userProfile(access);
       setProfile(response);
     } catch (error) {

@@ -21,7 +21,7 @@ function Pricing({ rooms }) {
               <td>{room.type}</td>
               <td>{room.no_of_beds}</td>
               <td>{room.room_capacity}</td>
-              <td>₹{room.price}</td>
+              <td>${room.price}</td>
             </tr>
             ))}
           </tbody>

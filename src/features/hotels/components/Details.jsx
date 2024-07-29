@@ -9,7 +9,7 @@ import api from "../services/api";
 import CheckAvailability from "./CheckAvailability";
 import { isTokenValid } from "../../../utils/TokenValidator";
 
-function Details({ hotel, room_type, features, rooms }) {
+function Details({ hotel, room_type, features, rooms, review }) {
   const [checkAvailable, setCheckAvailable] = useState(false);
   const { isLogged, access } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ function Details({ hotel, room_type, features, rooms }) {
 
       <div className="row mt-3">
         <Pricing rooms={room_type} />
-        <Reviews />
+        <Reviews reviews={review} />
       </div>
 
       <div className="row mt-3">

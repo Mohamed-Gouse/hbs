@@ -1,23 +1,21 @@
 import React from "react";
 
-function Reviews() {
+function Reviews({ reviews }) {
   return (
     <div className="col-md-6">
-      <div className="review-card p-4 mb-4 shadow bg-white rounded">
+      <div className="p-3 shadow bg-white">
         <h5>Reviews</h5>
+        <hr />
         <ul className="list-group">
-          <li className="list-group-item">
-            <strong>username1</strong> - <span>3/5</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </li>
-          <li className="list-group-item">
-            <strong>username2</strong> - <span>4/5</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </li>
+          {reviews &&
+            reviews.map((review) => (
+              <li className="list-group-item m-0 py-2" key={review.id}>
+                <strong>{review.user.username}</strong>
+                 {/* - <span>3/5</span> */}
+                <p className="mt-3 m-0">{review.review}</p>
+              </li>
+            ))}
         </ul>
-        <button type="button" className="btn btn-primary btn-block mt-2">
-          Show More
-        </button>
       </div>
     </div>
   );
