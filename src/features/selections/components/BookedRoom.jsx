@@ -16,7 +16,7 @@ function BookedRoom({ selections, token, fetchSelections }) {
     <div className="col-12 card p-3 shadow-sm">
       <h4 className="font-weight-bold">Selected Room</h4>
       <hr />
-      {selections.map((rooms) => (
+      { selections && selections.length > 0 ? selections.map((rooms) => (
         <div className="shadow-sm border p-2 my-1" key={rooms.id}>
           <div className="row">
             <div className="col-8">
@@ -68,7 +68,13 @@ function BookedRoom({ selections, token, fetchSelections }) {
             </div>
           </div>
         </div>
-      ))}
+      )) : (
+        <div className="p-3 alert alert-warning">
+          <p className="text-center m-0">
+            No selection
+          </p>
+        </div>
+      )}
     </div>
   );
 }

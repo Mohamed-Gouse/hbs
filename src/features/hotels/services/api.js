@@ -37,6 +37,7 @@ const checkAvailable = async (formData) => {
       timerProgressBar: true,
       showConfirmButton: false,
     });
+    console.log(error);
     throw error;
   }
 };

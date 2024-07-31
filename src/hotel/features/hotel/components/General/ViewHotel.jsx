@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import AddDocument from "../AddDocument";
 import MapPreview from "../MapPreview";
 import Api from "../../services/Api";
+import { useNavigate } from "react-router-dom";
 
 function ViewHotel({slug, status, token}) {
 
   const [hotel, setHotel] = useState({});
   const [document, setDocument] = useState({});
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchHotel();
@@ -53,6 +54,10 @@ function ViewHotel({slug, status, token}) {
       );
     }
   };
+
+  const editHotel = () => {
+    navigate('edit')
+  }
 
   return (
     <React.Fragment>
@@ -113,13 +118,14 @@ function ViewHotel({slug, status, token}) {
                   </span>
                 </p>
               </div>
-              <div className="">
+              <div className="d-flex flex-column justify-content-right">
                 <img
                   src={hotel.image}
                   alt=""
                   className="img-fluid"
-                  style={{ height: "250px" }}
+                  style={{ height: "250px", objectFit: "contain" }}
                 />
+                <button className="btn btn-secondary mt-2" onClick={editHotel}>Edit</button>
               </div>
             </div>
           </div>

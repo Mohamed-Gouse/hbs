@@ -606,6 +606,20 @@ const updateRoomAvailability = async (token, Id, formData) => {
   }
 };
 
+export const editHotel = async (access, slug, formData) => {
+  try {
+    console.log(formData);
+    const response = await axiosIn.patch(`admin/hotels/${slug}/`, formData, {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    return response.data
+  } catch (error) {
+    throw error;
+  }
+};
+
 export default {
   fetchHotel,
   addHotel,

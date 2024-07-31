@@ -19,6 +19,11 @@ import BookingDetailPage from "./pages/BookingDetailPage";
 import AdminReservationPage from "./hotel/pages/AdminReservationPage";
 import AdminReservationDetailPage from "./hotel/pages/AdminReservationDetailPage";
 import ReviewWritingPage from "./pages/ReviewWritingPage";
+import SuperDashboardPage from "./admin/pages/SuperDashboardPage";
+import SuperHotelListPage from "./admin/pages/SuperHotelListPage";
+import SuperHotelDetailPage from "./admin/pages/SuperHotelDetailPage";
+import SuperUserListPage from "./admin/pages/SuperUserListPage";
+import HotelEdit from "./hotel/features/hotel/HotelEdit";
 
 const AppRoutes = () => {
   const { isLogged, user } = useSelector((state) => state.auth);
@@ -36,7 +41,7 @@ const AppRoutes = () => {
                   ? "/"
                   : user.role === "hotel"
                   ? "/admin/dashboard"
-                  : "/super-admin/dashboard"
+                  : "/super/dashboard"
               }
             />
           )
@@ -140,6 +145,16 @@ const AppRoutes = () => {
         }
       />
       <Route
+        path="/admin/hotel/:slug/edit"
+        element={
+          isLogged && user.role === "hotel" ? (
+            <HotelEdit />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
         path="/admin/bookings"
         element={
           isLogged && user.role === "hotel" ? (
@@ -184,6 +199,49 @@ const AppRoutes = () => {
         element={
           isLogged && user.role === "hotel" ? (
             <AdminMessages />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
+      {/* SuperAdminRouter */}
+
+      <Route
+        path="/super/dashboard"
+        element={
+          isLogged && user.role === "admin" ? (
+            <SuperDashboardPage />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/super/hotels"
+        element={
+          isLogged && user.role === "admin" ? (
+            <SuperHotelListPage />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/super/hotels/:id"
+        element={
+          isLogged && user.role === "admin" ? (
+            <SuperHotelDetailPage />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/super/users"
+        element={
+          isLogged && user.role === "admin" ? (
+            <SuperUserListPage />
           ) : (
             <Navigate to="/login" />
           )

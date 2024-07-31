@@ -13,39 +13,21 @@ function SideBar() {
       <div className="sidebar-sticky pt-3">
         <ul className="nav flex-column">
           <li className="nav-item">
-            <Link className="nav-link" to={"/admin/dashboard"}>
+            <Link className="nav-link" to={"/super/dashboard"}>
               <i className="bi bi-house mr-3"></i>
               Dashboard <span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to={"/admin/hotels"}>
+            <Link className="nav-link" to={"/super/hotels"}>
               <i className="bi bi-buildings mr-3"></i>
               Hotels
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to={"/admin/bookings"}>
-              <i className="bi bi-cart mr-3"></i>
-              Bookings
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to={"/admin/messages"}>
-              <i className="bi bi-envelope mr-3"></i>
-              Messages
-            </Link>
-          </li>
-          {/* <li className="nav-item">
-            <Link className="nav-link" to={"/admin/coupons"}>
-              <i className="bi bi-tag mr-3"></i>
-              Coupons
-            </Link>
-          </li> */}
-          <li className="nav-item">
-            <Link className="nav-link" to={"/admin/reviews"}>
-              <i className="bi bi-star mr-3"></i>
-              Reviews/Ratings
+            <Link className="nav-link" to={"/super/users"}>
+              <i className="bi bi-people mr-3"></i>
+              Users
             </Link>
           </li>
           

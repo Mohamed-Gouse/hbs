@@ -98,7 +98,7 @@ function Rooms({ slug, token }) {
 
               <div className="form-group">
                 <input
-                  type="number"
+                  type="text"
                   id="room_number"
                   name="room_number"
                   className="form-control"

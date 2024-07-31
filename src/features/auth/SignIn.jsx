@@ -31,7 +31,7 @@ function SignIn() {
       if (response.user.role === "hotel") {
         navigation("/admin/dashboard");
       } else if (response.user.role === "admin") {
-        navigation("/super-admin");
+        navigation("/super/dashboard");
       } else if (response.user.role === "user") {
         navigation("/");
       } else {

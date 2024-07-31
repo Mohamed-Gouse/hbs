@@ -7,7 +7,7 @@ function Wishlist({ wishlists, handleDelete }) {
       <div className="bg-white shadow-sm rounded p-3">
         <h3 className="font-weight-bold">Wishlist</h3>
         <hr />
-        {wishlists &&
+        {wishlists && wishlists.length > 0 ?
           wishlists.map((wishlist) => (
             <div
               className="bg-light shadow-sm rounded d-flex justify-content-between align-items-center mb-2 p-2"
@@ -27,7 +27,11 @@ function Wishlist({ wishlists, handleDelete }) {
               </div>
               <button className="btn btn-danger" onClick={() => handleDelete(wishlist.id)}>Delete</button>
             </div>
-          ))}
+          )) : (
+            <div className="p-3 alert alert-warning">
+              <p className="text-center m-0">No wishlist</p>
+            </div>
+          )}
       </div>
     </div>
   );
