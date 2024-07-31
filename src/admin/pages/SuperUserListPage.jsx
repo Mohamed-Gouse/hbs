@@ -1,10 +1,11 @@
 import React from 'react'
 import AdminLayout from '../layout/AdminLayout'
+import UserList from '../features/Users/UserList'
 
 function SuperUserListPage() {
   return (
     <AdminLayout>
-      <div>SuperUserListPage</div>
+      <UserList />
     </AdminLayout>
   )
 }
