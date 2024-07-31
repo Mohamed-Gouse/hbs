@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Api from "../services/Api";
 
 function PersonalInfo({ profile, token, fetchProfile }) {
@@ -6,6 +6,9 @@ function PersonalInfo({ profile, token, fetchProfile }) {
   const [username, setUsername] = useState("");
   const [full_name, setFull_name] = useState("");
   const [photo, setPhoto] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const fileInputRef = useRef();
 
   useEffect(() => {
     if (profile) {
@@ -25,10 +28,34 @@ function PersonalInfo({ profile, token, fetchProfile }) {
       const res = await Api.editProfile(token, formData);
       console.log(res);
       setEditProfile(false);
-      fetchProfile()
+      fetchProfile();
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
+
+  const handleImageSubmit = async () => {
+    if (!selectedImage) return;
+
+    const formData = new FormData();
+    formData.append("photo", selectedImage);
+
+    try {
+      const res = await Api.changeProfilePic(token, formData);
+      console.log(res);
+      fetchProfile();
+      setSelectedImage(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -111,10 +138,27 @@ function PersonalInfo({ profile, token, fetchProfile }) {
           >
             {editProfile ? "Cancel Edit" : "Edit Profile"}
           </button>
-          <button type="button" className="btn btn-secondary">
-            Change Profile
+          <button type="button" className="btn btn-secondary" onClick={triggerFileInput}>
+            Change Profile Pic
           </button>
         </div>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleImageChange}
+        />
+        {selectedImage && (
+          <div className="mt-2">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleImageSubmit}
+            >
+              Upload Image
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
