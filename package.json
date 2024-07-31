@@ -19,6 +19,8 @@
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "formik": "^2.4.6",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
