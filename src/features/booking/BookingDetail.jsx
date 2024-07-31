@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bookingDetail } from "./services/api";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function BookingDetail() {
   const [booking, setBooking] = useState({});
@@ -24,10 +26,27 @@ function BookingDetail() {
     fetchBooking();
   }, []);
 
+  const downloadInvoice = async () => {
+    const elementsToHide = document.querySelectorAll('.exclude');
+    elementsToHide.forEach(el => el.style.display = 'none');
+
+    const input = document.getElementById('invoice-content');
+    const canvas = await html2canvas(input);
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF();
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('invoice.pdf');
+
+    elementsToHide.forEach(el => el.style.display = 'block');
+  };
+
   return (
     <React.Fragment>
       {booking ? (
-        <div className="row m-0 mt-5 pt-5">
+        <div className="row m-0 mt-5 pt-5" id="invoice-content">
           {/* Customer Detail */}
           <div className="col-md-8 col-12 my-1">
             <div className="bg-white shadow-sm rounded p-3">
@@ -90,7 +109,9 @@ function BookingDetail() {
                   <span className="font-weight-bold">Grand Total: </span>₹
                   {booking.total}
                 </p>
-                <button className="btn btn-primary">Print Invoice</button>
+                <button className="btn btn-primary exclude" onClick={downloadInvoice}>
+                  Download Invoice
+                </button>
               </div>
             </div>
           </div>
@@ -113,11 +134,11 @@ function BookingDetail() {
                     </p>
                   </div>
                 ))}
-              <p className="mt-3 mb-1 text-capitalize">
+              <p className="mt-3 mb-1 text-capitalize exclude">
                 <span className="font-weight-bold">Checked in: </span>
                 {booking.checked_in ? "Checked In" : "Not yet"}
               </p>
-              <p className="mb-3 text-capitalize">
+              <p className="mb-3 text-capitalize exclude">
                 <span className="font-weight-bold">Checked out: </span>
                 {booking.checked_out ? "Checked Out" : "Not yet"}
               </p>
