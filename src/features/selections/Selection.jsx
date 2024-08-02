@@ -123,9 +123,9 @@ function Selection() {
         const sessionId = response.session_id;
         
         const stripe = await stripePromise;
-        const { error } = await stripe.redirectToCheckout({ sessionId });
-        
-        if (error) {
+        const data = await stripe.redirectToCheckout({ sessionId });
+        console.log(data);
+        if (data.error) {
           console.error("Stripe Checkout error:", error);
         }
       }

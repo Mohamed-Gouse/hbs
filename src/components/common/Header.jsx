@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -6,10 +6,37 @@ import "bootstrap/js/dist/dropdown";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link } from "react-router-dom";
 import { logout } from "../../app/authSlice";
+import io from "socket.io-client";
 
 function Header() {
   const isLogged = useSelector((state) => state.auth.isLogged);
   const dispatch = useDispatch();
+  const [notifications, setNotifications] = useState([]);
+  const [notificationCount, setNotificationCount] = useState(0);
+
+  useEffect(() => {
+    if (isLogged) {
+      const socket = io("ws://127.0.0.1:8000/ws/notifications/");
+
+      socket.on("connect", () => {
+        console.log("Connected to WebSocket server");
+      });
+
+      socket.on("message", (data) => {
+        setNotifications((prevNotifications) => [...prevNotifications, data.message]);
+        setNotificationCount((prevCount) => prevCount + 1);
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [isLogged]);
+
+  const handleNotificationClick = () => {
+    setNotificationCount(0); 
+  };
+
   return (
     <React.Fragment>
       <nav className="container my-2 rounded shadow-sm fixed-top navbar navbar-expand-lg navbar-light bg-white">
@@ -43,7 +70,22 @@ function Header() {
               </Link>
             </li>
           </ul>
-          <div className="ml-auto">
+          <div className="ml-auto d-flex align-items-center">
+            {isLogged && (
+              <div className="mr-3 position-relative">
+                <button
+                  className="btn text-secondary"
+                  onClick={handleNotificationClick}
+                >
+                  <i className="bi bi-bell"></i>
+                  {notificationCount > 0 && (
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white">
+                      {notificationCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+            )}
             {isLogged ? (
               <div className="dropdown open">
                 <a

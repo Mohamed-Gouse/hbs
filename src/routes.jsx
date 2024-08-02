@@ -24,6 +24,7 @@ import SuperHotelListPage from "./admin/pages/SuperHotelListPage";
 import SuperHotelDetailPage from "./admin/pages/SuperHotelDetailPage";
 import SuperUserListPage from "./admin/pages/SuperUserListPage";
 import HotelEdit from "./hotel/features/hotel/HotelEdit";
+import AdminReviewPage from "./hotel/pages/AdminReviewPage";
 
 const AppRoutes = () => {
   const { isLogged, user } = useSelector((state) => state.auth);
@@ -199,6 +200,16 @@ const AppRoutes = () => {
         element={
           isLogged && user.role === "hotel" ? (
             <AdminMessages />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+      <Route
+        path="/admin/reviews"
+        element={
+          isLogged && user.role === "hotel" ? (
+            <AdminReviewPage />
           ) : (
             <Navigate to="/login" />
           )
