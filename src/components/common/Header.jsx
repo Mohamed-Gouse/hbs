@@ -38,9 +38,9 @@ function Header() {
           <a className="navbar-brand mr-auto font-weight-bold">HMS</a>
           <ul className="navbar-nav mt-2 mt-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Hotel
-              </a>
+              <Link className="nav-link" to={'/'}>
+                Home
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
@@ -48,7 +48,7 @@ function Header() {
               </a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to={"login"}>
+              <Link className="nav-link" to={"/login"}>
                 List Your Property
               </Link>
             </li>
