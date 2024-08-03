@@ -25,6 +25,8 @@ import SuperHotelDetailPage from "./admin/pages/SuperHotelDetailPage";
 import SuperUserListPage from "./admin/pages/SuperUserListPage";
 import HotelEdit from "./hotel/features/hotel/HotelEdit";
 import AdminReviewPage from "./hotel/pages/AdminReviewPage";
+import SearchResult from "./pages/SearchResultPage";
+import SearchResultPage from "./pages/SearchResultPage";
 
 const AppRoutes = () => {
   const { isLogged, user } = useSelector((state) => state.auth);
@@ -52,6 +54,7 @@ const AppRoutes = () => {
       {/* UserRouters */}
       <Route path="/" element={isLogged && user.role !== 'user' ? <Navigate to={'/login'} /> : <HomePage />} />
       <Route path="/hotel/:slug" element={<HotelDetailPage />} />
+      <Route path="/search" element={<SearchResultPage />} />
       <Route
         path="/selection"
         element={

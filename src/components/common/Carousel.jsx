@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/js/dist/carousel.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { axiosIn } from "../../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 function Carousel({ gallery }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    if (searchQuery.trim() === "") return;
+
+    try {
+      const response = await axiosIn.get("search/", {
+        params: {
+          query: searchQuery,
+          latitude: latitude,
+          longitude: longitude,
+        },
+      });
+      console.log(response);
+      navigate("/search", { state: { searchQuery, results: response.data } });
+    } catch (error) {
+      console.error("Error searching hotels:", error);
+    }
+  };
+
+  // Get user's current location
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+        }
+      );
+    }
+  };
+
+  // Call getUserLocation on component mount
+  React.useEffect(() => {
+    getUserLocation();
+  }, []);
+
   return (
     <>
       {gallery && gallery.length > 0 ? (
@@ -148,16 +193,22 @@ function Carousel({ gallery }) {
               }}
             >
               <div className="col-md-6">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search for Places or Hotels..."
-                />
-                <button type="button" className="btn bg-white">
-                  <i className="bi bi-search"></i>
-                </button>
-              </div>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search for Places or Hotels..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="btn bg-white"
+                    onClick={handleSearch}
+                  >
+                    <i className="bi bi-search"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
