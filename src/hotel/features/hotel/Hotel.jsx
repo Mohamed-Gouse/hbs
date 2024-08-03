@@ -10,7 +10,8 @@ function Hotel({ hotels }) {
 
   return (
     <React.Fragment>
-      <div className="d-flex justify-content-between align-items-center mt-3 bg-white">
+      <div className="mt-3 bg-white">
+      <div className="d-flex justify-content-between align-items-center">
         <h1 className="h2">Hotels</h1>
         <button
           className="btn btn-primary"
@@ -63,6 +64,7 @@ function Hotel({ hotels }) {
               </tr>}
         </tbody>
       </table>
+      </div>
     </React.Fragment>
   );
 }
