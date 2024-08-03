@@ -39,6 +39,15 @@ const signin = (formData) => async (dispatch) => {
     console.log(response.data);
     return response.data
   } catch (error) {
+    Swal.fire({
+      title: error.response.data.detail || "An error occured",
+      icon: "warning",
+      toast: true,
+      timer: 5000,
+      position: "center",
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
     return error.response.data;
   }
 };

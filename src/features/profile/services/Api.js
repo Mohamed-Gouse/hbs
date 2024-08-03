@@ -31,6 +31,24 @@ const editProfile = async (token, formData) => {
   }
 };
 
+const changeProfilePic = async (token, formData) => {
+  try {
+    const response = await axiosIn.patch(
+      `users/profile/edit/`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 const allBookings = async (token) => {
   try {
     const response = await axiosIn.get(`users/bookings/`, {
@@ -73,6 +91,7 @@ const deleteWishlist = async (token, id) => {
 export default {
   userProfile,
   editProfile,
+  changeProfilePic,
   allBookings,
   listWishlists,
   deleteWishlist,

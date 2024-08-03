@@ -6,35 +6,18 @@ import "bootstrap/js/dist/dropdown";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Link } from "react-router-dom";
 import { logout } from "../../app/authSlice";
-import io from "socket.io-client";
+import "./navbar.css";
 
 function Header() {
-  const isLogged = useSelector((state) => state.auth.isLogged);
+  const { isLogged, access } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [notifications, setNotifications] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
 
-  useEffect(() => {
-    if (isLogged) {
-      const socket = io("ws://127.0.0.1:8000/ws/notifications/");
-
-      socket.on("connect", () => {
-        console.log("Connected to WebSocket server");
-      });
-
-      socket.on("message", (data) => {
-        setNotifications((prevNotifications) => [...prevNotifications, data.message]);
-        setNotificationCount((prevCount) => prevCount + 1);
-      });
-
-      return () => {
-        socket.disconnect();
-      };
-    }
-  }, [isLogged]);
-
   const handleNotificationClick = () => {
-    setNotificationCount(0); 
+    setToggle(!toggle);
+    setNotificationCount(0);
   };
 
   return (
@@ -84,6 +67,25 @@ function Header() {
                     </span>
                   )}
                 </button>
+                {toggle && (
+                  <div className="p-2 notification bg-white shadow rounded border">
+                    <ul className="list-group list-group-flush">
+                      {notifications && notifications.length > 0 ?
+                        notifications.map((notification, idx) => (
+                          <>
+                            <li
+                              className="list-group-item px-3 py-1"
+                              key={idx + 1}
+                            >
+                              {notification.message}
+                            </li>
+                          </>
+                        )) : (
+                          <div className="alert alert-warning m-0"> No notification</div>
+                        )}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
             {isLogged ? (
@@ -100,13 +102,13 @@ function Header() {
                   <span className="ml-2">User Profile</span>
                 </a>
                 <div className="dropdown-menu" aria-labelledby="triggerId">
-                  <Link className="dropdown-item" to={'/profile'}>
+                  <Link className="dropdown-item" to={"/profile"}>
                     Profile
                   </Link>
-                  <Link className="dropdown-item" to={'/profile#wishlist'}>
+                  <Link className="dropdown-item" to={"/profile#wishlist"}>
                     Wishlist
                   </Link>
-                  <Link className="dropdown-item" to={'/selection'}>
+                  <Link className="dropdown-item" to={"/selection"}>
                     Selection
                   </Link>
                   <button
