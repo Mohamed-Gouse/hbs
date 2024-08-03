@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import MapPreview from "../../components/MapPreview";
 import { fetchStatus, hotelDetails, statusUpdate } from "./services/api";
+import MapPreview from "../../../components/map/MapPreview";
 
 const HotelDetails = () => {
   const { id } = useParams();

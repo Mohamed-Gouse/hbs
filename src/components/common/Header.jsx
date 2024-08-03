@@ -38,7 +38,7 @@ function Header() {
           <a className="navbar-brand mr-auto font-weight-bold">HMS</a>
           <ul className="navbar-nav mt-2 mt-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" to={'/'}>
+              <Link className="nav-link" to={"/"}>
                 Home
               </Link>
             </li>
@@ -70,7 +70,7 @@ function Header() {
                 {toggle && (
                   <div className="p-2 notification bg-white shadow rounded border">
                     <ul className="list-group list-group-flush">
-                      {notifications && notifications.length > 0 ?
+                      {notifications && notifications.length > 0 ? (
                         notifications.map((notification, idx) => (
                           <>
                             <li
@@ -80,9 +80,13 @@ function Header() {
                               {notification.message}
                             </li>
                           </>
-                        )) : (
-                          <div className="alert alert-warning m-0"> No notification</div>
-                        )}
+                        ))
+                      ) : (
+                        <div className="alert alert-warning m-0">
+                          {" "}
+                          No notification
+                        </div>
+                      )}
                     </ul>
                   </div>
                 )}

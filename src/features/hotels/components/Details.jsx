@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import CheckAvailability from "./CheckAvailability";
 import { isTokenValid } from "../../../utils/TokenValidator";
+import MapPreview from "../../../components/map/MapPreview";
 
 function Details({ hotel, room_type, features, rooms, review }) {
   const [checkAvailable, setCheckAvailable] = useState(false);
@@ -115,6 +116,12 @@ function Details({ hotel, room_type, features, rooms, review }) {
 
       <div className="row mt-3">
         <Pricing rooms={room_type} />
+        <div className="col-md-6">
+        <MapPreview
+          latitude={parseFloat(hotel.latitude)}
+          longitude={parseFloat(hotel.longitude)}
+        />
+        </div>
         <Reviews reviews={review} />
       </div>
 

@@ -138,14 +138,16 @@ function Carousel({ gallery }) {
 
             {/* Centered Search Bar */}
             <div
-              className="position-absolute w-25"
+              className="position-absolute row w-100 d-flex justify-content-center align-items-center"
               style={{
                 top: "50%",
                 left: "50%",
+                right: "50%",
                 transform: "translate(-50%, -50%)",
                 zIndex: 10,
               }}
             >
+              <div className="col-md-6">
               <div className="input-group">
                 <input
                   type="text"
@@ -155,6 +157,7 @@ function Carousel({ gallery }) {
                 <button type="button" className="btn bg-white">
                   <i className="bi bi-search"></i>
                 </button>
+              </div>
               </div>
             </div>
           </div>
