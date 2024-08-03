@@ -27,7 +27,7 @@ const editProfile = async (token, formData) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    throw error;
+    throw error.response.data;
   }
 };
 

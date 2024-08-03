@@ -7,6 +7,7 @@ function PersonalInfo({ profile, token, fetchProfile }) {
   const [full_name, setFull_name] = useState("");
   const [photo, setPhoto] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [error, setError] = useState(null)
 
   const fileInputRef = useRef();
 
@@ -29,7 +30,9 @@ function PersonalInfo({ profile, token, fetchProfile }) {
       console.log(res);
       setEditProfile(false);
       fetchProfile();
+      setError(null)
     } catch (error) {
+      setError(error)
       console.log(error);
     }
   };
@@ -64,7 +67,7 @@ function PersonalInfo({ profile, token, fetchProfile }) {
         <p className="h3 font-weight-bold">Personal Details</p>
         <hr />
         <div className="row m-0">
-          <div className="col-md-8 col-12 p-0">
+          <div className="col-8 p-0">
             {!editProfile ? (
               <React.Fragment>
                 <p className="font-weight-bold">
@@ -98,6 +101,9 @@ function PersonalInfo({ profile, token, fetchProfile }) {
                       onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
+                    {error && error.username && (
+                    <small className="text-danger">{error.username}</small>
+                    )}
                   <div className="form-group my-1">
                     <label
                       htmlFor="full_name"
@@ -114,6 +120,9 @@ function PersonalInfo({ profile, token, fetchProfile }) {
                       onChange={(e) => setFull_name(e.target.value)}
                     />
                   </div>
+                  {error && error.full_name && (
+                    <small className="text-danger">{error.full_name}</small>
+                    )}
                 </div>
                 <button type="submit" className="btn btn-primary">
                   Update Profile
@@ -121,7 +130,7 @@ function PersonalInfo({ profile, token, fetchProfile }) {
               </form>
             )}
           </div>
-          <div className="col-md-4 col-12 d-flex justify-content-end p-0">
+          <div className="col-4 d-flex justify-content-end p-0">
             <img
               src={photo}
               className="img-fluid rounded"
