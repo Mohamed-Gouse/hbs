@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Hotel( {hotels} ) {
+function Hotel({ hotels }) {
   const navigation = useNavigate();
 
   const handleHotelView = (slug) => {
@@ -34,27 +34,33 @@ function Hotel( {hotels} ) {
           </tr>
         </thead>
         <tbody>
-          {hotels.map((hotel) => (
-            <tr key={hotel.id}>
-              <td>{hotel.name}</td>
-              <td>
-                <img src={hotel.image} alt="" style={{ height: "70px" }} />
+          {hotels && hotels.length > 0
+            ? hotels.map((hotel) => (
+                <tr key={hotel.id}>
+                  <td>{hotel.name}</td>
+                  <td>
+                    <img src={hotel.image} alt="" style={{ height: "70px" }} />
+                  </td>
+                  <td>{hotel.phone_number}</td>
+                  <td>{hotel.email}</td>
+                  <td>{hotel.status}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-secondary"
+                      onClick={() => {
+                        handleHotelView(hotel.slug);
+                      }}
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))
+            : <tr>
+              <td colSpan={6}>
+                <div className="alert alert-warning text-center">No Hotels</div>
               </td>
-              <td>{hotel.phone_number}</td>
-              <td>{hotel.email}</td>
-              <td>{hotel.status}</td>
-              <td>
-                <button
-                  className="btn btn-sm btn-secondary"
-                  onClick={() => {
-                    handleHotelView(hotel.slug);
-                  }}
-                >
-                  View
-                </button>
-              </td>
-            </tr>
-          ))}
+              </tr>}
         </tbody>
       </table>
     </React.Fragment>

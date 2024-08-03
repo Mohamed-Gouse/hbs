@@ -32,6 +32,7 @@ function BookingTable({ bookings, reservation }) {
               <th>Check in</th>
               <th>Check out</th>
               <th>Payment status</th>
+              <th>Room status</th>
               <th>Paid amount</th>
               <th>Action</th>
             </tr>
@@ -45,6 +46,7 @@ function BookingTable({ bookings, reservation }) {
                   <td>{booking.check_in_date}</td>
                   <td>{booking.check_out_date}</td>
                   <td>{booking.payment_status}</td>
+                  <td>{booking.is_active && booking.checked_in ? "User cheked In" : !booking.is_active && booking.checked_out ? "User checked out" : "Not checked in"}</td>
                   <td>₹ {booking.total}</td>
                   <td>
                     {reservation ? (
