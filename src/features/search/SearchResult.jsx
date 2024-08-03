@@ -23,7 +23,7 @@ function SearchResult() {
               <div key={hotel.id} className="col-md-4 mb-4">
                 <div className="card">
                   <img
-                    src={`http://127.0.0.1:8000${hotel.image}`}
+                    src={hotel.image}
                     className="card-img-top"
                     alt={hotel.name}
                   />
