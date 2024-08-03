@@ -63,7 +63,7 @@ function BookingTable({ bookings, reservation }) {
               ))
             ) : (
               <tr className="alert alert-warning w-100">
-                <th colSpan={7} className="text-center">
+                <th colSpan={8} className="text-center">
                   No Bookings
                 </th>
               </tr>
