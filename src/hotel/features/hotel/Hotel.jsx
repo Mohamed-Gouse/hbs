@@ -10,33 +10,33 @@ function Hotel({ hotels }) {
 
   return (
     <React.Fragment>
-      <div className="mt-3 bg-white">
-      <div className="d-flex justify-content-between align-items-center">
-        <h1 className="h2">Hotels</h1>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            navigation("/admin/add-hotel");
-          }}
-        >
-          Add Hotel
-        </button>
-      </div>
-      <hr />
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Hotel name</th>
-            <th>Image</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {hotels && hotels.length > 0
-            ? hotels.map((hotel) => (
+      <div className="mt-3 bg-white p-3">
+        <div className="d-flex justify-content-between align-items-center">
+          <h1 className="h2">Hotels</h1>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigation("/admin/add-hotel");
+            }}
+          >
+            Add Hotel
+          </button>
+        </div>
+        <hr />
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th>Hotel name</th>
+              <th>Image</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {hotels && hotels.length > 0 ? (
+              hotels.map((hotel) => (
                 <tr key={hotel.id}>
                   <td>{hotel.name}</td>
                   <td>
@@ -57,13 +57,17 @@ function Hotel({ hotels }) {
                   </td>
                 </tr>
               ))
-            : <tr>
-              <td colSpan={6}>
-                <div className="alert alert-warning text-center">No Hotels</div>
-              </td>
-              </tr>}
-        </tbody>
-      </table>
+            ) : (
+              <tr>
+                <td colSpan={6}>
+                  <div className="alert alert-warning text-center">
+                    No Hotels
+                  </div>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </React.Fragment>
   );
