@@ -1,8 +1,8 @@
 import { axiosIn } from "../../../../utils/axiosInstance";
 
-export const dashboardData = async (token) => {
+export const dashboardStats = async (token) => {
   try {
-    const response = await axiosIn.get("super/statitics/", {
+    const response = await axiosIn.get("admin/statistics/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

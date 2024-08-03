@@ -7,7 +7,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import LoginPage from "./pages/LoginPage";
 import SelectionPage from "./pages/SelectionPage";
 import ProfilePage from "./pages/ProfilePage";
-import Dashboard from "./hotel/pages/Dashboard";
 import HotelPage from "./hotel/pages/HotelPage";
 import HotelAddPage from "./hotel/pages/HotelAddPage";
 import AdminHotelDetailPage from "./hotel/pages/AdminHotelDetailPage";
@@ -25,8 +24,8 @@ import SuperHotelDetailPage from "./admin/pages/SuperHotelDetailPage";
 import SuperUserListPage from "./admin/pages/SuperUserListPage";
 import HotelEdit from "./hotel/features/hotel/HotelEdit";
 import AdminReviewPage from "./hotel/pages/AdminReviewPage";
-import SearchResult from "./pages/SearchResultPage";
 import SearchResultPage from "./pages/SearchResultPage";
+import DashboardPage from "./hotel/pages/DashboardPage";
 
 const AppRoutes = () => {
   const { isLogged, user } = useSelector((state) => state.auth);
@@ -112,7 +111,7 @@ const AppRoutes = () => {
         path="/admin/dashboard"
         element={
           isLogged && user.role === "hotel" ? (
-            <Dashboard />
+            <DashboardPage />
           ) : (
             <Navigate to={"/"} />
           )

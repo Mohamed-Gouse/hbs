@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { dashboardStats } from "./services/api";
 import { useSelector } from "react-redux";
 import Block from "./components/Block";
-import { dashboardData } from "./services/api";
 
-function Home() {
+function Dashboard() {
   const { access } = useSelector((state) => state.auth);
   const [statitics, setStatitics] = useState(null)
 
   const stats = async () => {
     try {
-      const data = await dashboardData(access);
-      console.log(data);      
+      const data = await dashboardStats(access);
+      console.log(data);
+      
       setStatitics(data)
     } catch (error) {
       console.log(error);
@@ -40,15 +41,15 @@ function Home() {
       </div>
 
       <div className="row">
-        <Block name={'Hotels'} stat={statitics?.hotels} />
-        <Block name={'Hotel Users'} stat={statitics?.hotel_users} />
-        <Block name={'Public Users'} stat={statitics?.public_users} />
-        <Block name={'Hotels Accepted'} stat={statitics?.hotels_accepted} />
-        <Block name={'Hotels Rejected'} stat={statitics?.hotels_rejected} />
-        <Block name={'Active Users'} stat={statitics?.active_users} />
+        <Block name={'Hotels'} stat={statitics?.hotels_count} />
+        <Block name={'Bookings'} stat={statitics?.bookings_count} />
+        <Block name={'Reservations'} stat={statitics?.reservations_count} />
+        <Block name={'Customers'} stat={statitics?.customers_count} />
+        <Block name={'Profits'} stat={statitics?.profit} />
+        <Block name={'Reviews'} stat={statitics?.reviews_count} />
       </div>
     </div>
   );
 }
 
-export default Home;
+export default Dashboard;
