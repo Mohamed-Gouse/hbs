@@ -15,7 +15,7 @@ function Chat({selectedUser, admin}) {
   useEffect(() => {
     if (selectedUser) {
       const chatSocket = new WebSocket(
-        `ws://127.0.0.1:8000/ws/chat/${selectedUser.id}/`,
+        `ws://16.171.240.169/ws/chat/${selectedUser.id}/`,
         [access]
       );
 
