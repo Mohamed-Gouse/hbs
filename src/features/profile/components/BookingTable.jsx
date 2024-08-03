@@ -1,8 +1,7 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 function BookingTable({ bookings }) {
-
   return (
     <div className="col-12">
       <div
@@ -29,7 +28,7 @@ function BookingTable({ bookings }) {
             </tr>
           </thead>
           <tbody>
-            {bookings &&
+            {bookings && bookings.length > 0 ? (
               bookings.map((booking) => (
                 <tr key={booking.id}>
                   <td scope="row">{booking.hotel.name}</td>
@@ -39,17 +38,36 @@ function BookingTable({ bookings }) {
                   <td>{booking.check_out_date}</td>
                   <td>{booking.payment_status}</td>
                   <td>${booking.total}</td>
-                  <td>{booking.checked_out? (
-                    <>
-                      <Link to={`review/${booking.hotel.id}`} className="btn btn-secondary shadow" >Write Review</Link>
-                    </>
-                  ) : (
-                    <>
-                      <Link to={`booking/${booking.id}`} className="btn btn-secondary shadow" >View</Link>
-                    </>
-                  )}</td>
+                  <td>
+                    {booking.checked_out ? (
+                      <>
+                        <Link
+                          to={`review/${booking.hotel.id}`}
+                          className="btn btn-secondary shadow"
+                        >
+                          Write Review
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to={`booking/${booking.id}`}
+                          className="btn btn-secondary shadow"
+                        >
+                          View
+                        </Link>
+                      </>
+                    )}
+                  </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td className="alert alert-warning" colSpan={8}>
+                <p className="text-center m-0">No bookings</p>
+              </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

@@ -62,7 +62,7 @@ function PersonalInfo({ profile, token, fetchProfile }) {
   };
 
   return (
-    <div className="col-md-5 col-12">
+    <div className="col-md-5 col-12 my-1">
       <div className="bg-white shadow-sm p-3 rounded">
         <p className="h3 font-weight-bold">Personal Details</p>
         <hr />

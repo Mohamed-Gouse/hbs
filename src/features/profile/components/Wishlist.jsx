@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function Wishlist({ wishlists, handleDelete }) {
   
   return (
-    <div className="col-md-7 col-12" id="wishlist">
+    <div className="col-md-7 col-12 my-1" id="wishlist">
       <div className="bg-white shadow-sm rounded p-3">
         <h3 className="font-weight-bold">Wishlist</h3>
         <hr />
