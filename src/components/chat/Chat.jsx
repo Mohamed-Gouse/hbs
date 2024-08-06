@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import ChatWindow from "./ChatWindow";
 import ChatInput from "./ChatInput";
 
+const WS_URL = import.meta.env.VITE_WS_URL;
+
 function Chat({selectedUser, admin}) {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
@@ -15,7 +17,7 @@ function Chat({selectedUser, admin}) {
   useEffect(() => {
     if (selectedUser) {
       const chatSocket = new WebSocket(
-        `ws://16.171.240.169/ws/chat/${selectedUser.id}/`,
+        `ws://${WS_URL}/ws/chat/${selectedUser.id}/`,
         [access]
       );
 
